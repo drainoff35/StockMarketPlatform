@@ -1,4 +1,4 @@
-﻿using StockMarketPlatform.DTOs.Stock;
+﻿using StockMarketPlatform.DTOs.CommentDtos;
 using StockMarketPlatform.Models;
 
 namespace StockMarketPlatform.Mappers

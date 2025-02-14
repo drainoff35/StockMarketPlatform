@@ -1,4 +1,5 @@
-﻿using StockMarketPlatform.Models;
+﻿using StockMarketPlatform.DTOs.CommentDtos;
+using StockMarketPlatform.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StockMarketPlatform.DTOs.Stock

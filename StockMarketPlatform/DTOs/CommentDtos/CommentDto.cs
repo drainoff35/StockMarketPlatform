@@ -1,4 +1,4 @@
-﻿namespace StockMarketPlatform.DTOs.Stock
+﻿namespace StockMarketPlatform.DTOs.CommentDtos
 {
     public class CommentDto
     {

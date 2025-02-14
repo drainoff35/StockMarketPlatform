@@ -47,7 +47,7 @@ namespace StockMarketPlatform.Controllers
         {
             var newStock = dto.toStockFromCreateDto();
             await _stockRepository.SaveAsync(newStock);
-            return CreatedAtAction(nameof(GetById), new { id = newStock.Id }, newStock.toStockDto());
+            return Ok(newStock);
         }
 
         [HttpPut]

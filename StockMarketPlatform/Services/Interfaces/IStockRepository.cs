@@ -10,5 +10,6 @@ namespace StockMarketPlatform.Services.Interfaces
         Task<Stock> SaveAsync(Stock entity);
         Task<Stock> UpdateAsync(int id, UpdateStockDto dto);
         Task<Stock> DeleteAsync(int id);
+        Task<bool> StockExists(int id); 
     }
 }

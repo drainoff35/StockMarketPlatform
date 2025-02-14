@@ -16,5 +16,15 @@ namespace StockMarketPlatform.Mappers
                 Title = comment.Title
             };
         }
+
+        public static Comment toCommentFromCreateDto(this CreateCommentDto createCommentDto,int stockId)
+        {
+            return new Comment
+            {
+                Content = createCommentDto.Content,
+                StockId = stockId,
+                Title = createCommentDto.Title
+            };
+        }
     }
 }

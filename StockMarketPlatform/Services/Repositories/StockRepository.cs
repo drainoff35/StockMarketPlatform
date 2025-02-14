@@ -41,6 +41,11 @@ namespace StockMarketPlatform.Services.Repositories
             return entity;
         }
 
+        public async Task<bool> StockExists(int id)
+        {
+            return await _dbContext.Stocks.AnyAsync(c => c.Id == id);
+        }
+
         public async Task<Stock> UpdateAsync(int id, UpdateStockDto dto)
         {
             var stock = await _dbContext.Stocks.FindAsync(id);

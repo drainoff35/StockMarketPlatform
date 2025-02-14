@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using StockMarketPlatform.DTOs.CommentDtos;
 using StockMarketPlatform.Mappers;
 using StockMarketPlatform.Models;
 using StockMarketPlatform.Services.Interfaces;
+using System.Formats.Asn1;
+using System.Runtime.InteropServices;
 
 namespace StockMarketPlatform.Controllers
 {
@@ -10,9 +14,11 @@ namespace StockMarketPlatform.Controllers
     public class CommentControllers : ControllerBase
     {
         private readonly ICommentRepository _commentRepository;
-        public CommentControllers(ICommentRepository commentRepository)
+        private readonly IStockRepository _stockRepository;
+        public CommentControllers(ICommentRepository commentRepository, IStockRepository stockRepository)
         {
             _commentRepository = commentRepository;
+            _stockRepository = stockRepository;
         }
 
 
@@ -33,6 +39,42 @@ namespace StockMarketPlatform.Controllers
                 return NotFound();
             }
             return Ok(comment.toCommentDto());
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> Create([FromRoute] int id,[FromBody] CreateCommentDto dto)
+        {
+            if(!await _stockRepository.StockExists(id))
+            {
+                return BadRequest();
+            }
+
+            var comment = dto.toCommentFromCreateDto(id);
+            await _commentRepository.CreateAsync(comment);
+            return Ok(comment);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentDto dto)
+        {
+            var comment = await _commentRepository.UpdateAsync(id, dto);
+
+            if( comment == null)
+            {
+                return BadRequest();
+            }
+            return Ok(comment.toCommentDto());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var comment = await _commentRepository.DeleteAsync(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return Ok(comment);
         }
 
     }

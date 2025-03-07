@@ -30,7 +30,7 @@ namespace StockMarketPlatform.Controllers
             return Ok(stocksDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var stock = await _stockRepository.GetByIdAsync(id);
@@ -51,7 +51,7 @@ namespace StockMarketPlatform.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockDto dto)
         {
             var stockModel = await _stockRepository.UpdateAsync(id, dto);
@@ -63,7 +63,7 @@ namespace StockMarketPlatform.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var stock = await _stockRepository.DeleteAsync(id);
